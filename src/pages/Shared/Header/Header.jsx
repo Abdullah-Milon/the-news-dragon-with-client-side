@@ -14,11 +14,11 @@ const Header = () => {
             </div>
             <div className='d-flex'>
                 <Button variant="danger">Latest</Button>
-                <Marquee speed={50}>
+                <Marquee speed={60}>
                     Match Highlights: Germany vs Spain — as it happened   !   Match Highlights: Germany vs Spain as...
                 </Marquee>
-            </div>
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+            </div >
+            <Navbar className='mt-4' collapseOnSelect expand="lg" bg="light" variant="light">
                 <Container>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">

@@ -15,17 +15,15 @@ const LeftNav = () => {
     }, [])
 
     return (
-        <div>
+        <div >
             <h3>All categories</h3>
-            <div>
+            <div className='ps-5'>
                 {
-                    categories.map(category => {
-                        <p
-                            key={categories.id}
-                        >
-                        <Link>{category.name}</Link>
-                    </p>
-                    })
+                    categories.map(category => <h6
+                    key={categories.id}
+                    >
+                        <Link to={`/category/${category.id}`} className='text-black text-decoration-none'>{category.name}</Link>
+                    </h6> )
                 }
             </div>
         </div>
