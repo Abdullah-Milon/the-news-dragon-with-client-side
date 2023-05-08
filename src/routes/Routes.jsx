@@ -26,8 +26,7 @@ const router = createBrowserRouter([
                 element: <Register></Register>
             }
         ]
-    }
-
+    },
     {
         path: 'category',
         element: <Main></Main>,

@@ -6,7 +6,8 @@ export const AuthContext = createContext(null);
 const auth = getAuth(app);
 
 const AuthProvider = ({children}) => {   //1
-    const user = {displayName: 'Muri khan'} ///3
+    const user = null ///3
+    /* const user = {displayName: 'Muri khan'} */ ///3
 
     const authInfo = {
         user
