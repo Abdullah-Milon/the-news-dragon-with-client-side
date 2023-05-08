@@ -1,25 +1,42 @@
-import {createBrowserRouter} from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Main from '../layouts/Main';
 import Home from '../pages/Home/Home/Home';
 import Category from '../pages/Home/Category/Category';
 import NewsLayout from '../layouts/NewsLayout';
 import News from '../pages/News/News/News';
+import LoginLayout from '../layouts/LoginLayout';
+import Register from '../pages/Login/Register/Register';
+import Login from './../pages/Login/Login/Login';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Main></Main>,
+        element: <LoginLayout></LoginLayout>,
         children: [
             {
                 path: '/',
-                // element: <Home></Home>,
-                element: <Category></Category>,
-                loader: () => fetch(`http://localhost:5000/news`)
+                element: <Navigate to='/category/0'></Navigate>
             },
             {
-                path: '/category/:id',
-                element:<Category></Category>,
-                loader: ({params}) => fetch(`http://localhost:5000/categories/${params.id}`)
+                path: '/login',
+                element: <Login></Login>,
+            },
+            {
+                path: 'register',
+                element: <Register></Register>
+            }
+        ]
+    }
+
+    {
+        path: 'category',
+        element: <Main></Main>,
+        children: [
+            {
+                path: ':id',
+                // path: '/category/:id',
+                element: <Category></Category>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             }
         ]
     },
@@ -30,7 +47,7 @@ const router = createBrowserRouter([
             {
                 path: ':id',
                 element: <News></News>,
-                loader: ({params}) => fetch(`http://localhost:5000/news/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/news/${params.id}`)
             }
         ]
     }
