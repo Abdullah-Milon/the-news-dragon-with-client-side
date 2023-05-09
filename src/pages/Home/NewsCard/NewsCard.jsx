@@ -2,8 +2,9 @@ import moment from 'moment';
 import React from 'react';
 import { Button, Card, Image } from 'react-bootstrap';
 import { FaEye, FaRegBookmark, FaRegStar, FaShareAlt, FaStar } from 'react-icons/fa';
-import Rating from 'react-rating';
 import { Link } from 'react-router-dom';
+import { Rating } from '@smastrom/react-rating';
+import '@smastrom/react-rating/style.css'
 
 const NewsCard = ({ news }) => {
     const { _id, title, details, image_url, author, total_view, rating } = news;
@@ -32,15 +33,9 @@ const NewsCard = ({ news }) => {
                 </Card.Text>
             </Card.Body>
             <Card.Footer className="d-flex text-muted">
-                <div className="flex-grow-1">
-                    <Rating
-                        placeholderRating={rating?.number}
-                        readonly
-                        emptySymbol={<FaRegStar></FaRegStar>}
-                        placeholderSymbol={<FaStar className='text-danger'></FaStar>}
-                        fullSymbol={<FaStar></FaStar>}
-                    ></Rating>
-                    <span>{rating?.number}</span>
+                <div className="flex-grow-1 d-flex align-items-center">
+                    <Rating style={{ maxWidth: 150 }} value={rating} readonly />
+                    <span className='ms-2'>{rating?.number}</span>
                 </div>
                 <div className="gap-2">
                     <FaEye></FaEye>  {total_view}
