@@ -2,12 +2,18 @@ import React from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../provides/AuthProvider';
 import { Navigate, useLocation } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
 
 const PrivateRoute = ({children}) => {
 
-    const {user} = useContext(AuthContext);
+    const {user, loading} = useContext(AuthContext);
     const location = useLocation(); //3
-    console.log(location);
+    // console.log(location);
+    console.log('user in private', user);
+
+    if(loading){
+        return <Spinner animation="border" variant="primary" />
+    }
 
     //1
     if(user){
@@ -32,4 +38,5 @@ export default PrivateRoute;
  * 2. if user logged in, then allow them to visit the route
  * 3. else redirect the user to the login page 
  * 4. setup the private or protected router 
+ * 5. handle loading 
 */

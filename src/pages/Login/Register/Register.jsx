@@ -8,8 +8,9 @@ const Register = () => {
     const { createUser } = useContext(AuthContext);
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
+    const [accepted, setAccepted] = useState(false);
 
-    const handleRegister = event =>{
+    const handleRegister = event => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
@@ -20,17 +21,22 @@ const Register = () => {
         console.log(name, photo, email, password);
 
         createUser(email, password)
-        .then(result => {
-            const createdUser = result.user;
-            console.log(createdUser);
-            form.reset();
-            setError('');
-            setSuccess('User has been created successfully.')
-        })
-        .catch(error => {
-            console.error(error)
-            setError(error.message)
-        })
+            .then(result => {
+                const createdUser = result.user;
+                console.log(createdUser);
+                form.reset();
+                setError('');
+                setSuccess('User has been created successfully.')
+            })
+            .catch(error => {
+                console.error(error)
+                setError(error.message)
+            })
+    }
+
+    const handleAccepted = event =>{
+        // console.log(event.target.checked);
+        setAccepted(event.target.checked);
     }
 
     return (
@@ -55,9 +61,13 @@ const Register = () => {
                     <Form.Control type="password" name="password" placeholder="Password" required />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" nam='accept' label="Accept Terms and Condition" />
+                    <Form.Check
+                        onClick={handleAccepted}
+                        type="checkbox"
+                        nam='accept'
+                        label={<>Accept <Link to="/terms" className='text-decoration-none'>Terms and Condition</Link></>} />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button disabled ={!accepted} variant="primary" type="submit">
                     Register
                 </Button>
                 <br />
@@ -66,10 +76,10 @@ const Register = () => {
                 </Form.Text>
                 <br />
                 <Form.Text className="text-success">
-                <h6>{success}</h6>
+                    <h6>{success}</h6>
                 </Form.Text>
                 <Form.Text className="text-danger">
-                <h6>{error}</h6>
+                    <h6>{error}</h6>
                 </Form.Text>
             </Form>
         </Container>
