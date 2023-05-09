@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../provides/AuthProvider';
@@ -6,6 +6,8 @@ import { AuthContext } from '../../../provides/AuthProvider';
 const Register = () => {
 
     const { createUser } = useContext(AuthContext);
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
 
     const handleRegister = event =>{
         event.preventDefault();
@@ -22,9 +24,12 @@ const Register = () => {
             const createdUser = result.user;
             console.log(createdUser);
             form.reset();
+            setError('');
+            setSuccess('User has been created successfully.')
         })
         .catch(error => {
             console.error(error)
+            setError(error.message)
         })
     }
 
@@ -59,11 +64,12 @@ const Register = () => {
                 <Form.Text className="text-secondary">
                     Already Have an Account ? <Link to="/login"> Login</Link>
                 </Form.Text>
+                <br />
                 <Form.Text className="text-success">
-
+                <h6>{success}</h6>
                 </Form.Text>
                 <Form.Text className="text-danger">
-
+                <h6>{error}</h6>
                 </Form.Text>
             </Form>
         </Container>

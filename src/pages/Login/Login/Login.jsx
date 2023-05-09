@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Container, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../provides/AuthProvider';
 
 const Login = () => {
 
     const { signInUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    console.log( location);
+    const from = location.state?.from?.pathname || 'category/0';
+
+    const [success, setSuccess] = useState('');
+    const [error, setError] = useState('');
 
     const handleLogin = event =>{
         event.preventDefault();
@@ -20,9 +27,14 @@ const Login = () => {
             const loggedUser = result.user;
             console.log(loggedUser);
             form.reset();
+            setError('');
+            setSuccess('User login successfully');
+            // navigate('/category/0')
+            navigate(from, {replace:true})
         })
         .catch(error =>{
             console.log(error)
+            setError(error.message);
         })
     }
 
@@ -49,11 +61,12 @@ const Login = () => {
                 <Form.Text className="text-secondary">
                   Don't Have an Account ? <Link to="/register"> Register</Link>
                 </Form.Text>
+                <br />
                 <Form.Text className="text-success">
-
+                <h6>{success}</h6>
                 </Form.Text>
                 <Form.Text className="text-danger">
-
+                <h6>{error}</h6>
                 </Form.Text>
             </Form>
         </Container>
